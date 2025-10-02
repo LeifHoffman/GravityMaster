@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://be34i14ogvn5q"]
+
+[ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_ufso2"]
+[ext_resource type="Texture2D" uid="uid://bhx1bc3i0oeo1" path="res://assets/Goober.png" id="2_o82bv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66j55"]
+atlas = ExtResource("2_o82bv")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31kyr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66j55")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kde1j"]
+size = Vector2(6, 8)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_ufso2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5, -0.5)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_31kyr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_kde1j")
