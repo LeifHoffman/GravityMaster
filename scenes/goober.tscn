@@ -1,35 +1,75 @@
-[gd_scene load_steps=6 format=3 uid="uid://be34i14ogvn5q"]
+[gd_scene load_steps=9 format=3 uid="uid://be34i14ogvn5q"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_ufso2"]
-[ext_resource type="Texture2D" uid="uid://bhx1bc3i0oeo1" path="res://assets/Goober.png" id="2_o82bv"]
+[ext_resource type="Texture2D" uid="uid://dlapu7sdii8nb" path="res://assets/Wizmerd1.png" id="2_pn065"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_66j55"]
-atlas = ExtResource("2_o82bv")
-region = Rect2(0, 0, 10, 10)
+[sub_resource type="AtlasTexture" id="AtlasTexture_r22vc"]
+atlas = ExtResource("2_pn065")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d781"]
+atlas = ExtResource("2_pn065")
+region = Rect2(0, 18, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqca6"]
+atlas = ExtResource("2_pn065")
+region = Rect2(18, 0, 18, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31kyr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_66j55")
+"texture": SubResource("AtlasTexture_r22vc")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2d781")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqca6")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kde1j"]
-size = Vector2(6, 8)
+size = Vector2(7, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_025qj"]
+size = Vector2(3.5, 9)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_ufso2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.5, -0.5)
-scale = Vector2(0.5, 0.5)
+position = Vector2(1.7053e-13, -1.7053e-13)
+scale = Vector2(0.777778, 0.777778)
 sprite_frames = SubResource("SpriteFrames_31kyr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.5)
+position = Vector2(-0.25, 0)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_kde1j")
+
+[node name="jump_window" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.25, 0.5)
+shape = SubResource("RectangleShape2D_025qj")
+debug_color = Color(0.942076, 9.91493e-06, 0.607757, 0.42)
+
+[node name="respawn" type="Timer" parent="Hitbox"]
+
+[connection signal="timeout" from="jump_window" to="." method="_on_jump_window_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Hitbox/respawn" to="." method="_on_respawn_timeout"]
