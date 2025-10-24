@@ -6,4 +6,5 @@ GravityMaster is a platforming game about a gravity-controling wizard who must n
 2. Open Godot Project Manager
 3. Download github .zip file and drag into Project Manager to import files
 4. Confirm installation of files
-5. Click on the "Play" button found in the top right
+5. Open installation if not automatically opened
+6. Click on the "Play" button found in the top right
