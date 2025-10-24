@@ -1,2 +1,2 @@
-#GravityMaster
+# GravityMaster
 GravityMaster is a platformer about a gravity-controling wizard who must navigate a maze filled with spikes. It is currently under development for Elizabethtown's CS club Coding Challenge, and may continue development after submission.
